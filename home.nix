@@ -8,6 +8,7 @@
   pkgs.ripgrep
   pkgs.fd
   pkgs.exa
+  pkgs.trash-cli
   ];
   programs.bat.enable = true;
   # This value determines the Home Manager release that your
