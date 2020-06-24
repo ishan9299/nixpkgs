@@ -4,13 +4,19 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   home.packages = [
+  pkgs.neofetch
   pkgs.fzf
   pkgs.ripgrep
   pkgs.fd
   pkgs.exa
   pkgs.trash-cli
+  pkgs.niv
   ];
+
   programs.bat.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.enableFishIntegration = true;
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
