@@ -11,7 +11,10 @@
   pkgs.exa
   pkgs.trash-cli
   pkgs.niv
+  pkgs.lf
   ];
+
+  fonts.fontconfig.enable = true;
 
   programs.bat.enable = true;
   programs.direnv.enable = true;
