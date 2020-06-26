@@ -12,6 +12,9 @@
   pkgs.trash-cli
   pkgs.niv
   pkgs.lf
+  pkgs.ncmpcpp
+  pkgs.youtube-dl
+  pkgs.mpc_cli
   ];
 
   fonts.fontconfig.enable = true;
@@ -22,6 +25,7 @@
 
   services.mpd.enable = true;
   services.mpd.musicDirectory = "/home/me/Music";
+  services.mpd.dataDir = "/home/me/.local/share/mpd";
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
