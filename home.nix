@@ -12,6 +12,7 @@
   pkgs.trash-cli
   pkgs.niv
   pkgs.lf
+  pkgs.stow
   pkgs.ncmpcpp
   pkgs.youtube-dl
   pkgs.mpc_cli
@@ -22,6 +23,8 @@
   programs.bat.enable = true;
   programs.direnv.enable = true;
   programs.direnv.enableFishIntegration = true;
+  programs.starship.enable = true;
+  programs.starship.enableFishIntegration = true;
 
   services.mpd.enable = true;
   services.mpd.musicDirectory = "/home/me/Music";
