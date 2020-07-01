@@ -8,7 +8,6 @@
   pkgs.fzf
   pkgs.ripgrep
   pkgs.fd
-  pkgs.exa
   pkgs.trash-cli
   pkgs.niv
   pkgs.lf
@@ -20,11 +19,12 @@
 
   fonts.fontconfig.enable = true;
 
-  programs.bat.enable = true;
   programs.direnv.enable = true;
   programs.direnv.enableFishIntegration = true;
   programs.starship.enable = true;
   programs.starship.enableFishIntegration = true;
+  programs.broot.enable = true;
+  programs.broot.enableFishIntegration = true;
 
   services.mpd.enable = true;
   services.mpd.musicDirectory = "/home/me/Music";
@@ -37,5 +37,5 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.03";
+  home.stateVersion = "20.09";
 }
