@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  home.username = "me";
+  home.homeDirectory = "/home/me";
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   home.packages = [
@@ -17,12 +20,18 @@
     pkgs.mpd
     pkgs.youtube-dl
     pkgs.mpc_cli
+    pkgs.weechat
+    pkgs.cava
   ];
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
   };
 
   fonts.fontconfig.enable = true;
+
+  programs.bat = {
+    enable = true;
+  };
 
   programs.direnv = {
     enable = true;
@@ -54,77 +63,51 @@
     sensibleOnTop = false;
     terminal = "tmux-256color";
     extraConfig = ''
+#+--------- Random Config -------+
       set-option -g mouse on
       set-option -sa terminal-overrides ',alacritty:RGB'
+      set -g status-left-length 15
 
-# Split Windows
+#+------- Split Windows -------+
       bind | split-window -h
       bind - split-window -v
 
-# Automatically set window title
+#+------- Automatically set window title ---------+
       set-window-option -g automatic-rename on
       set-option -g set-titles on
+      set-window-option -g window-status-style fg=brightyellow,bg=default
+      set-window-option -g window-status-current-style fg=brightred,bg=default
 
-# Setting a quick way to reload config
+#+------- Setting a quick way to reload config ---------+
       bind r source-file ~/.tmux.conf
 
-# Vim keys for navigating panes
+#+------- Vim keys for navigating panes ----------+
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U
       bind l select-pane -R
 
-#+----------------+
-#+ Plugin Support +
-#+----------------+
-#+--- tmux-prefix-highlight ---+
-      set -g @prefix_highlight_fg black
-      set -g @prefix_highlight_bg brightcyan
-
-#+---------+
-#+ Options +
-#+---------+
-      set -g status-interval 1
-      set -g status on
-
-#+--------+
-#+ Status +
-#+--------+
-#+--- Layout ---+
-      set -g status-justify left
-
 #+--- Colors ---+
-      set -g status-style bg=black
-      set -g status-style fg=white
+      set-option -g status-style fg=yellow,bg=white
 
-#+-------+
-#+ Panes +
-#+-------+
-      set -g pane-border-style bg=black
-      set -g pane-border-style fg=black
-      set -g pane-active-border-style bg=black
-      set -g pane-active-border-style fg=brightblack
-      set -g display-panes-colour black
-      set -g display-panes-active-colour brightblack
+#+--- Panes ---+
+      set-option -g pane-border-style fg=white
+      set-option -g pane-active-border-style fg=brightcyan
+      set-option -g display-panes-active-colour blue #blue
+      set-option -g display-panes-colour brightred #orange
 
-#+------------+
-#+ Clock Mode +
-#+------------+
+#+------- Clock Mode ---------+
       setw -g clock-mode-colour cyan
 
-#+----------+
-#+ Messages +
-#+---------+
-      set -g message-style fg=cyan
-      set -g message-style bg=brightblack
-      set -g message-command-style fg=cyan
-      set -g message-command-style bg=brightblack
+#+------- Messages -------+
+      set-option -g message-style fg=brightred,bg=white
     '';
   };
 
   programs.rtorrent = {
     enable = true;
   };
+
   services.mpd = {
     enable = true;
     musicDirectory = "/home/me/Music";
@@ -155,5 +138,5 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.03";
+  home.stateVersion = "20.09";
 }
