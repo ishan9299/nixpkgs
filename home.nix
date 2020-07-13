@@ -61,12 +61,12 @@
     escapeTime = 0;
     customPaneNavigationAndResize = true;
     sensibleOnTop = false;
-    terminal = "tmux-256color";
+    terminal = "screen-256color";
     extraConfig = ''
 #+--------- Random Config -------+
       set-option -g mouse on
-      set-option -sa terminal-overrides ',alacritty:RGB'
-      set -g status-left-length 15
+      set-option -sa terminal-overrides ',xterm-256color*:Tc'
+      set -g status-left-length 20
 
 #+------- Split Windows -------+
       bind | split-window -h
@@ -75,8 +75,6 @@
 #+------- Automatically set window title ---------+
       set-window-option -g automatic-rename on
       set-option -g set-titles on
-      set-window-option -g window-status-style fg=brightyellow,bg=default
-      set-window-option -g window-status-current-style fg=brightred,bg=default
 
 #+------- Setting a quick way to reload config ---------+
       bind r source-file ~/.tmux.conf
@@ -87,20 +85,13 @@
       bind k select-pane -U
       bind l select-pane -R
 
-#+--- Colors ---+
-      set-option -g status-style fg=yellow,bg=white
+#+------- Colorscheme -------+
+      set -g status-style bg=default
+      set -g status-style fg=white
+      set-window-option -g window-status-current-style fg=green
 
-#+--- Panes ---+
-      set-option -g pane-border-style fg=white
-      set-option -g pane-active-border-style fg=brightcyan
-      set-option -g display-panes-active-colour blue #blue
-      set-option -g display-panes-colour brightred #orange
-
-#+------- Clock Mode ---------+
-      setw -g clock-mode-colour cyan
-
-#+------- Messages -------+
-      set-option -g message-style fg=brightred,bg=white
+#+---------- Alignment ----------+
+      set-option -g status-justify centre
     '';
   };
 
@@ -119,13 +110,6 @@
       audio_output {
       type "pulse"
       name "pulse audio"
-      }
-
-      audio_output {
-      type "fifo"
-      name "fifo ouput"
-      path "/tmp/mpd.fifo"
-      format "44100:16:2"
       }
     '';
   };
