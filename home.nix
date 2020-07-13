@@ -8,7 +8,6 @@
   programs.home-manager.enable = true;
   home.packages = [
     pkgs.neofetch
-    pkgs.fzf
     pkgs.ripgrep
     pkgs.fd
     pkgs.glibcLocales
@@ -22,6 +21,7 @@
     pkgs.mpc_cli
     pkgs.weechat
     pkgs.cava
+    pkgs.tree
   ];
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
@@ -43,9 +43,19 @@
     enableFishIntegration = true;
   };
 
-  programs.broot = {
+  programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    defaultCommand = "rg --files --hidden --no-ignore-vcs --glob '!{.git/*,.cache,.var,.local,*.jpg,*png,*.pdf,*.mp3,*.flac}'";
+    defaultOptions = [ "--layout=reverse" "--info=inline"];
+    # ALT-C
+    changeDirWidgetCommand = "fd --type d -H ";
+    changeDirWidgetOptions = ["--preview  'tree -C | head -200'"];
+    # CTRL-T
+    fileWidgetCommand = "fd . --type f";
+    fileWidgetOptions = [ "--preview ''" ];
+    # CTRL-R
+    historyWidgetOptions = [ "--sort" "--exact" "--preview ''" ];
   };
 
   programs.htop = {
@@ -97,6 +107,33 @@
 
   programs.rtorrent = {
     enable = true;
+  };
+
+  programs.fish = {
+    enable = true;
+    shellInit = ''
+      set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
+      set PATH /var/lib/flatpak/exports/bin $PATH
+
+      set -gx EDITOR nvim
+      set -gx WEECHAT_HOME ~/.config/weechat
+
+# For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager
+      bass source /home/me/.nix-profile/etc/profile.d/nix.sh
+      export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+    '';
+
+    plugins = [
+      {
+        name = "bass";
+        src = pkgs.fetchFromGitHub {
+          owner = "edc";
+          repo = "bass";
+          rev = "50eba266b0d8a952c7230fca1114cbc9fbbdfbd4";
+          sha256 = "0ppmajynpb9l58xbrcnbp41b66g7p0c9l2nlsvyjwk6d16g4p4gy";
+        };
+      }
+    ];
   };
 
   services.mpd = {
