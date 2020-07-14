@@ -31,6 +31,9 @@
 
   programs.bat = {
     enable = true;
+    config = {
+    theme = "Solarized (light)";
+    };
   };
 
   programs.direnv = {
@@ -46,16 +49,14 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
-    defaultCommand = "rg --files --hidden --no-ignore-vcs --glob '!{.git/*,.cache,.var,.local,*.jpg,*png,*.pdf,*.mp3,*.flac}'";
+    defaultCommand = "rg --files --hidden --no-ignore-vcs --glob '!{.cache,.var,.local,Pictures,*.pdf,Music,Videos}'";
     defaultOptions = [ "--layout=reverse" "--info=inline"];
     # ALT-C
     changeDirWidgetCommand = "fd --type d -H ";
-    changeDirWidgetOptions = ["--preview  'tree -C | head -200'"];
     # CTRL-T
     fileWidgetCommand = "fd . --type f";
-    fileWidgetOptions = [ "--preview ''" ];
     # CTRL-R
-    historyWidgetOptions = [ "--sort" "--exact" "--preview ''" ];
+    historyWidgetOptions = [ "--sort" "--exact" ];
   };
 
   programs.htop = {
