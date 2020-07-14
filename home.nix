@@ -3,6 +3,45 @@
 {
   home.username = "me";
   home.homeDirectory = "/home/me";
+  
+  home.sessionVariables = {
+      EDITOR="nvim"
+      WEECHAT_HOME="~/.config/weechat"
+};
+
+
+gtk.gtk3.css = ''
+window.ssd separator:first-child + headerbar:backdrop,
+window.ssd separator:first-child + headerbar,
+window.ssd headerbar:first-child:backdrop,
+window.ssd headerbar:first-child,
+window.ssd headerbar:last-child:backdrop,
+window.ssd headerbar:last-child,
+window.ssd stack headerbar:first-child:backdrop,
+window.ssd stack headerbar:first-child,
+window.ssd stack headerbar:last-child:backdrop,
+window.ssd stack headerbar:last-child,
+window.ssd decoration,
+window.ssd headerbar.titlebar {
+  border-radius: 0;
+}
+
+window.ssd headerbar * {
+  margin-top: -100px;
+  color: #1c2022; /* May need to tweak, this matches Adwaita Dark */
+}
+
+window.ssd headerbar.titlebar,
+window.ssd headerbar.titlebar button.titlebutton {
+  border: none;
+  font-size: 0;
+  height: 0;
+  margin: 0;
+  max-height: 0;
+  min-height: 0;
+  padding: 0;
+}
+'';
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -115,9 +154,6 @@
     shellInit = ''
       set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
       set PATH /var/lib/flatpak/exports/bin $PATH
-
-      set -gx EDITOR nvim
-      set -gx WEECHAT_HOME ~/.config/weechat
 
 # For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager
       bass source /home/me/.nix-profile/etc/profile.d/nix.sh
