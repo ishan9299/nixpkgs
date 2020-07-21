@@ -9,7 +9,12 @@
     WEECHAT_HOME="~/.config/weechat";
   };
 
-  # home.keyboard.options = [ "grp:caps_toggle" ];
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+  ];
+
 
   gtk.enable = true;
   gtk.gtk3.extraCss = ''
@@ -70,6 +75,11 @@
 
   fonts.fontconfig.enable = true;
 
+  programs.mpv = {
+    enable = true;
+  };
+
+  
   programs.bat = {
     enable = true;
     config = {
@@ -90,7 +100,7 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
-    defaultCommand = "rg --files --hidden --no-ignore-vcs --glob '!{.cache,.var,.local,Pictures,*.pdf,Music,Videos}'";
+    defaultCommand = "fd --type file --hidden --follow --no-ignore-vcs --exclude '{.cache,.local,.var,Pictures,Music,Videos,.elfeed}'";
     defaultOptions = [ "--layout=reverse" "--info=inline"];
     # ALT-C
     changeDirWidgetCommand = "fd --type d -H ";
@@ -100,56 +110,26 @@
     historyWidgetOptions = [ "--sort" "--exact" ];
   };
 
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacsUnstable;
+  };
+
   programs.htop = {
     enable = true;
     colorScheme = 6;
     treeView = true;
   };
 
-  programs.alacritty = {
+  programs.tmux = {
     enable = true;
-    settings = {
-
-      window = {
-        padding = {
-          x = 0;
-          y = 0;
-        };
-      };
-
-      font = {
-        normal = {
-          family = "Source Code Pro";
-          style = "Regular";
-        };
-        bold = {
-          family = "Source Code Pro";
-          style = "Regular";          
-        };
-        italic = {
-          family = "Source Code Pro";
-          style = "Regular";
-        };
-        size = 14;
-      };
-      shell.program = /home/me/.nix-profile/bin/tmux;
-    };
-  };
-
-    programs.kitty = {
-      enable = true;
-      font.name = "Source Code Pro 12";
-    };
-
-    programs.tmux = {
-      enable = true;
-      baseIndex = 1;
-      keyMode = "vi";
-      escapeTime = 0;
-      customPaneNavigationAndResize = true;
-      sensibleOnTop = false;
-      terminal = "screen-256color";
-      extraConfig = ''
+    baseIndex = 1;
+    keyMode = "vi";
+    escapeTime = 0;
+    customPaneNavigationAndResize = true;
+    sensibleOnTop = false;
+    terminal = "screen-256color";
+    extraConfig = ''
 #+--------- Random Config -------+
       set-option -g mouse on
       set-option -sa terminal-overrides ',xterm-256color*:Tc'
@@ -180,15 +160,45 @@
 #+---------- Alignment ----------+
       set-option -g status-justify centre
     '';
-    };
+  };
 
-    programs.rtorrent = {
-      enable = true;
-    };
+  programs.alacritty = {
+    enable = true;
+    settings = {
 
-    programs.fish = {
-      enable = true;
-      shellInit = ''
+      window = {
+        padding = {
+          x = 0;
+          y = 0;
+        };
+      };
+
+      font = {
+        normal = {
+          family = "Source Code Pro";
+          style = "Regular";
+        };
+        bold = {
+          family = "Source Code Pro";
+          style = "Regular";
+        };
+        italic = {
+          family = "Source Code Pro";
+          style = "Regular";
+        };
+        size = 14;
+      };
+    };
+  };
+
+
+  programs.rtorrent = {
+    enable = true;
+  };
+
+  programs.fish = {
+    enable = true;
+    shellInit = ''
       set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
       set PATH /var/lib/flatpak/exports/bin $PATH
 
@@ -197,24 +207,24 @@
       # export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
     '';
 
-      plugins = [
-        {
-          name = "bass";
-          src = pkgs.fetchFromGitHub {
-            owner = "edc";
-            repo = "bass";
-            rev = "50eba266b0d8a952c7230fca1114cbc9fbbdfbd4";
-            sha256 = "0ppmajynpb9l58xbrcnbp41b66g7p0c9l2nlsvyjwk6d16g4p4gy";
-          };
-        }
-      ];
-    };
+    plugins = [
+      {
+        name = "bass";
+        src = pkgs.fetchFromGitHub {
+          owner = "edc";
+          repo = "bass";
+          rev = "50eba266b0d8a952c7230fca1114cbc9fbbdfbd4";
+          sha256 = "0ppmajynpb9l58xbrcnbp41b66g7p0c9l2nlsvyjwk6d16g4p4gy";
+        };
+      }
+    ];
+  };
 
-    services.mpd = {
-      enable = true;
-      musicDirectory = "/home/me/Music";
-      dataDir = "/home/me/.local/share/mpd";
-      extraConfig = ''
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/me/Music";
+    dataDir = "/home/me/.local/share/mpd";
+    extraConfig = ''
       auto_update "yes"
       log_file "syslog"
 
@@ -223,15 +233,19 @@
       name "pulse audio"
       }
     '';
-    };
+  };
 
-    # This value determines the Home Manager release that your
-    # configuration is compatible with. This helps avoid breakage
-    # when a new Home Manager release introduces backwards
-    # incompatible changes.
-    #
-    # You can update Home Manager without changing this value. See
-    # the Home Manager release notes for a list of state version
-    # changes in each release.
-    home.stateVersion = "20.09";
-  }
+  services.emacs = {
+    enable = true;
+	};
+
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "20.09";
+}
