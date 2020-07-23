@@ -220,21 +220,6 @@
     ];
   };
 
-  services.mpd = {
-    enable = true;
-    musicDirectory = "/home/me/Music";
-    dataDir = "/home/me/.local/share/mpd";
-    extraConfig = ''
-      auto_update "yes"
-      log_file "syslog"
-
-      audio_output {
-      type "pulse"
-      name "pulse audio"
-      }
-    '';
-  };
-
   services.emacs = {
     enable = true;
 	};
