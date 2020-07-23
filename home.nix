@@ -166,6 +166,8 @@
     enable = true;
     settings = {
 
+      shell.program = "/home/me/.nix-profile/bin/tmux";
+
       window = {
         padding = {
           x = 0;
