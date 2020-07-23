@@ -120,10 +120,12 @@
     treeView = true;
   };
 
+  programs.vscode.enable = true;
+  
   programs.tmux = {
     enable = true;
     baseIndex = 1;
-    keyMode = "vi";
+    keyMode = "emacs";
     escapeTime = 0;
     customPaneNavigationAndResize = true;
     sensibleOnTop = false;
