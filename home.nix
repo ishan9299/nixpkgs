@@ -56,18 +56,17 @@
     pkgs.neofetch
     pkgs.ripgrep
     pkgs.fd
-    pkgs.glibcLocales
+#    pkgs.glibcLocales
     pkgs.trash-cli
     pkgs.niv
     pkgs.lf
     pkgs.stow
-    pkgs.ncmpcpp
     pkgs.youtube-dl
-    pkgs.mpc_cli
-    pkgs.weechat
+#    pkgs.weechat
     pkgs.cava
     pkgs.tree
     pkgs.blender
+    pkgs.cmus
   ];
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
