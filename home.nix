@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/me";
 
   home.sessionVariables = {
-    EDITOR="nvim";
+    EDITOR="emacs";
     WEECHAT_HOME="~/.config/weechat";
   };
 
