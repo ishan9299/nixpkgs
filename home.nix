@@ -85,35 +85,11 @@
     }
   '';
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-  home.packages = [
-    pkgs.neofetch
-    pkgs.ripgrep
-    pkgs.fd
-#    pkgs.glibcLocales
-    pkgs.trash-cli
-    pkgs.niv
-    pkgs.lf
-    pkgs.stow
-    pkgs.youtube-dl
-#    pkgs.weechat
-    pkgs.cava
-    pkgs.tree
-    pkgs.blender
-    pkgs.cmus
-  ];
-  home.sessionVariables = {
-    LANG = "en_US.UTF-8";
-  };
-
-  fonts.fontconfig.enable = true;
 
   programs.mpv = {
     enable = true;
   };
 
-  
   programs.bat = {
     enable = true;
     config = {
