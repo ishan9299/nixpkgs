@@ -1,21 +1,56 @@
 { config, pkgs, ... }:
 
 {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  home.packages = [
+
+    # Applications
+    pkgs.blender
+    pkgs.hexchat
+
+    #CLI
+    pkgs.neofetch
+    pkgs.trash-cli
+
+    # Rust Programs
+    pkgs.ripgrep
+    pkgs.fd
+    pkgs.ytop
+    pkgs.exa
+    pkgs.gitAndTools.gitui
+
+    #Music
+    pkgs.puddletag
+    pkgs.cmus
+    pkgs.cava
+    pkgs.youtube-dl
+
+    #Packages for Non-Nixos
+    #    pkgs.glibcLocales
+
+  ];
+
   home.username = "me";
   home.homeDirectory = "/home/me";
 
   home.sessionVariables = {
-    EDITOR="emacs";
-    WEECHAT_HOME="~/.config/weechat";
+    EDITOR="nvim";
   };
 
+  home.sessionVariables = {
+    LANG = "en_US.UTF-8";
+  };
+
+  #Overlays
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
     }))
   ];
 
-
+  # Programs and their configurations
   gtk.enable = true;
   gtk.gtk3.extraCss = ''
     window.ssd separator:first-child + headerbar:backdrop,
