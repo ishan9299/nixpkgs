@@ -100,6 +100,7 @@
   programs.direnv = {
     enable = true;
     enableFishIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.starship = {
@@ -110,6 +111,8 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
     defaultCommand = "fd --type file --hidden --follow --no-ignore-vcs --exclude '{.cache,.local,.var,Pictures,Music,Videos,.elfeed}'";
     defaultOptions = [ "--layout=reverse" "--info=inline"];
     # ALT-C
@@ -120,23 +123,27 @@
     historyWidgetOptions = [ "--sort" "--exact" ];
   };
 
-  programs.emacs = {
+  programs.nushell = {
     enable = true;
-    package = pkgs.emacsUnstable;
   };
 
-  programs.htop = {
+  programs.lf = {
     enable = true;
-    colorScheme = 6;
-    treeView = true;
+    settings = {
+      color256 = true;
+      dirfirst = true;
+      drawbox = true;
+      shell = "sh";
+    };
+    keybindings = {
+      dD = "trash-put";
+    };
   };
 
-  programs.vscode.enable = true;
-  
   programs.tmux = {
     enable = true;
     baseIndex = 1;
-    keyMode = "emacs";
+    keyMode = "vi";
     escapeTime = 0;
     customPaneNavigationAndResize = true;
     sensibleOnTop = false;
@@ -189,15 +196,15 @@
 
       font = {
         normal = {
-          family = "Source Code Pro";
+          family = "Overpass Mono";
           style = "Regular";
         };
         bold = {
-          family = "Source Code Pro";
+          family = "Overpass Mono";
           style = "Regular";
         };
         italic = {
-          family = "Source Code Pro";
+          family = "Overpass Mono";
           style = "Regular";
         };
         size = 14;
@@ -205,13 +212,17 @@
     };
   };
 
-
-  programs.rtorrent = {
+  programs.emacs = {
     enable = true;
+    package = pkgs.emacsGcc;
   };
 
   programs.fish = {
     enable = true;
+    shellAliases = {
+      "ll" = "exa -abghHliS";
+      "htop" = "ytop";
+    };
     shellInit = ''
       set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
       set PATH /var/lib/flatpak/exports/bin $PATH
@@ -234,9 +245,7 @@
     ];
   };
 
-  services.emacs = {
-    enable = true;
-	};
+  services.lorri.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
