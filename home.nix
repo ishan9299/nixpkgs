@@ -37,6 +37,7 @@
 
   home.sessionVariables = {
     EDITOR="nvim";
+    MOZ_ENABLE_WAYLAND=1;
   };
 
   home.sessionVariables = {
@@ -214,7 +215,12 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsGcc;
+    package = pkgs.emacsUnstable;
+  };
+
+  programs.eclipse = {
+    enable = true;
+    package = pkgs.eclipses.eclipse-java;
   };
 
   programs.fish = {
