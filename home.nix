@@ -9,6 +9,7 @@
     # Applications
     pkgs.blender
     pkgs.hexchat
+    pkgs.geany
 
     #CLI
     pkgs.neofetch
