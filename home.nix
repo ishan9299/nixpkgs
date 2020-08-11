@@ -259,7 +259,18 @@
     ];
   };
 
+  programs.qutebrowser = {
+    enable = true;
+    enableDefaultBindings = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  
   services.lorri.enable = true;
+
 
   # Non-Nixos
   # targets.genericLinux.enable = true;
