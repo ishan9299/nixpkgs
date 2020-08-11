@@ -202,20 +202,23 @@
 
       font = {
         normal = {
-          family = "Overpass Mono";
+          family = "Share Tech Mono";
           style = "Regular";
         };
         bold = {
-          family = "Overpass Mono";
+          family = "Share Tech Mono";
           style = "Regular";
         };
         italic = {
-          family = "Overpass Mono";
+          family = "Share Tech Mono";
           style = "Regular";
         };
-        size = 14;
+        size = 17;
       };
     };
+
+
+
   };
 
   programs.emacs = {
