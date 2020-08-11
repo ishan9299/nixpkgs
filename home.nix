@@ -20,6 +20,10 @@
     pkgs.fd
     pkgs.ytop
     pkgs.exa
+    pkgs.hyperfine
+    pkgs.du-dust # dust
+    pkgs.procs # procs
+    pkgs.tealdeer # tldr
     pkgs.gitAndTools.gitui
 
     #Music
