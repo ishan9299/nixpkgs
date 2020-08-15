@@ -213,12 +213,9 @@
           family = "Share Tech Mono";
           style = "Regular";
         };
-        size = 17;
+        size = 19;
       };
     };
-
-
-
   };
 
   programs.emacs = {
@@ -241,8 +238,7 @@
       set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
       set PATH /var/lib/flatpak/exports/bin $PATH
 
-# For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager
-      # bass source /home/me/.nix-profile/etc/profile.d/nix.sh
+# For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager (for non Nixos)
       # export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
     '';
 
@@ -268,9 +264,8 @@
     enable = true;
     enableFishIntegration = true;
   };
-  
-  services.lorri.enable = true;
 
+  services.lorri.enable = true;
 
   # Non-Nixos
   # targets.genericLinux.enable = true;
