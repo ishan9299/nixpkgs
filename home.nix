@@ -7,9 +7,9 @@
   home.packages = [
 
     # Applications
-    pkgs.blender
     pkgs.hexchat
     pkgs.geany
+    pkgs.qbittorrent
 
     #CLI
     pkgs.neofetch
@@ -28,7 +28,7 @@
 
     #Music
     pkgs.puddletag
-    pkgs.cmus
+    pkgs.musikcube
     pkgs.cava
     pkgs.youtube-dl
 
