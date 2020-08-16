@@ -58,41 +58,6 @@
   ];
 
   # Programs and their configurations
-  gtk.enable = true;
-  gtk.gtk3.extraCss = ''
-    window.ssd separator:first-child + headerbar:backdrop,
-    window.ssd separator:first-child + headerbar,
-    window.ssd headerbar:first-child:backdrop,
-    window.ssd headerbar:first-child,
-    window.ssd headerbar:last-child:backdrop,
-    window.ssd headerbar:last-child,
-    window.ssd stack headerbar:first-child:backdrop,
-    window.ssd stack headerbar:first-child,
-    window.ssd stack headerbar:last-child:backdrop,
-    window.ssd stack headerbar:last-child,
-    window.ssd decoration,
-    window.ssd headerbar.titlebar {
-    border-radius: 0;
-    }
-
-    window.ssd headerbar * {
-    margin-top: -100px;
-    color: #1c2022; /* May need to tweak, this matches Adwaita Dark */
-    }
-
-    window.ssd headerbar.titlebar,
-    window.ssd headerbar.titlebar button.titlebutton {
-    border: none;
-    font-size: 0;
-    height: 0;
-    margin: 0;
-    max-height: 0;
-    min-height: 0;
-    padding: 0;
-    }
-  '';
-
-
   programs.mpv = {
     enable = true;
   };
@@ -224,11 +189,6 @@
     package = pkgs.emacsUnstable;
   };
 
-  programs.eclipse = {
-    enable = true;
-    package = pkgs.eclipses.eclipse-java;
-  };
-
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -254,11 +214,6 @@
         };
       }
     ];
-  };
-
-  programs.qutebrowser = {
-    enable = true;
-    enableDefaultBindings = true;
   };
 
   programs.zoxide = {
