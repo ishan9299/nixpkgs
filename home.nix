@@ -14,6 +14,7 @@
     #CLI
     pkgs.neofetch
     pkgs.trash-cli
+    pkgs.poppler_utils
 
     # Rust Programs
     pkgs.ripgrep
