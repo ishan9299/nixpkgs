@@ -1,42 +1,45 @@
 { config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
+# Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   home.packages = [
 
-    # Applications
+# Applications
     pkgs.hexchat
-    pkgs.geany
-    pkgs.qbittorrent
+      pkgs.qbittorrent
 
-    #CLI
-    pkgs.neofetch
-    pkgs.trash-cli
-    pkgs.poppler_utils
+#CLI
+      pkgs.neofetch
+      pkgs.nnn
+      pkgs.imagemagick
+      pkgs.optipng
+      pkgs.trash-cli
+      pkgs.poppler_utils
+      pkgs.atool
 
-    # Rust Programs
-    pkgs.ripgrep
-    pkgs.fd
-    pkgs.ytop
-    pkgs.exa
-    pkgs.hyperfine
-    pkgs.du-dust # dust
-    pkgs.procs # procs
-    pkgs.tealdeer # tldr
-    pkgs.gitAndTools.gitui
+# Rust Programs
+      pkgs.ripgrep
+      pkgs.fd
+      pkgs.zenith
+      pkgs.exa
+      pkgs.hyperfine
+      pkgs.du-dust # dust
+      pkgs.procs # procs
+      pkgs.tealdeer # tldr
+      pkgs.gitAndTools.gitui
 
-    #Music
-    pkgs.puddletag
-    pkgs.musikcube
-    pkgs.cava
-    pkgs.youtube-dl
+#Music
+      pkgs.puddletag
+      pkgs.musikcube
+      pkgs.cava
+      pkgs.youtube-dl
 
-    #Packages for Non-Nixos
-    #    pkgs.glibcLocales
+#Packages for Non-Nixos
+      pkgs.glibcLocales
 
-  ];
+      ];
 
   home.username = "me";
   home.homeDirectory = "/home/me";
@@ -50,16 +53,9 @@
     LANG = "en_US.UTF-8";
   };
 
-  #Overlays
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-    }))
-  ];
-
-  # Programs and their configurations
+# Programs and their configurations
   programs.mpv = {
-    enable = true;
+    enable = false;
   };
 
   programs.bat = {
@@ -85,31 +81,18 @@
     enableFishIntegration = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    defaultCommand = "fd --type file --hidden --follow --no-ignore-vcs --exclude '{.cache,.local,.var,Pictures,Music,Videos,.elfeed}'";
+    defaultCommand = "fd --type file --hidden --follow --no-ignore-vcs";
     defaultOptions = [ "--layout=reverse" "--info=inline"];
-    # ALT-C
+# ALT-C
     changeDirWidgetCommand = "fd --type d -H ";
-    # CTRL-T
+# CTRL-T
     fileWidgetCommand = "fd . --type f";
-    # CTRL-R
+# CTRL-R
     historyWidgetOptions = [ "--sort" "--exact" ];
   };
 
   programs.nushell = {
     enable = true;
-  };
-
-  programs.lf = {
-    enable = true;
-    settings = {
-      color256 = true;
-      dirfirst = true;
-      drawbox = true;
-      shell = "sh";
-    };
-    keybindings = {
-      dD = "trash-put";
-    };
   };
 
   programs.tmux = {
@@ -150,11 +133,11 @@
 
 #+---------- Alignment ----------+
       set-option -g status-justify centre
-    '';
+      '';
   };
 
   programs.alacritty = {
-    enable = true;
+    enable = false;
     settings = {
 
       shell.program = "/home/me/.nix-profile/bin/tmux";
@@ -187,27 +170,72 @@
   programs.fish = {
     enable = true;
     shellAliases = {
-      "ll" = "exa -abghHliS";
-      "htop" = "ytop";
+      "ls" = "exa -GB1 --icons";
+      "ll" = "exa -abghHliS --icons";
+      "htop" = "zenith";
     };
     shellInit = ''
-      set PATH $HOME/.local/bin $HOME/.local/npm/bin $PATH
+      set PATH $HOME/.local/bin $HOME/.local/npm/bin $HOME/.local/Goneovim $HOME/.cargo/bin $PATH
       set PATH /var/lib/flatpak/exports/bin $PATH
 
-# For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager (for non Nixos)
-      # export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
-    '';
+#--- nix
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+          end
+
+          export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
+
+#---- For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager (for non Nixos)
+          export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+
+#---- NNN settings
+          export NNN_OPTS="eRHdF"
+          export NNN_TRASH=1
+          export NNN_FIFO=/tmp/nnn.fifo
+          export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)"
+          '';
+
+    functions = {
+
+      n = {
+        description = "support nnn quit and change directory";
+        wraps = "nnn";
+        body = ''
+          if test -n "$NNNLVL"
+            if [ (expr $NNNLVL + 0) -ge 1 ]
+              echo "nnn is already running"
+                return
+            end
+          end
+
+          if test -n "$XDG_CONFIG_HOME"
+            set -x NNN_TMPFILE "$XDG_CONFIG_HOME/nnn/.lastd"
+          else
+            set -x NNN_TMPFILE "$HOME/.config/nnn/.lastd"
+          end
+
+
+          nnn $argv
+
+          if test -e $NNN_TMPFILE
+            source $NNN_TMPFILE
+            rm $NNN_TMPFILE
+          end
+                        '';
+      };
+
+    };
 
     plugins = [
-      {
-        name = "bass";
-        src = pkgs.fetchFromGitHub {
-          owner = "edc";
-          repo = "bass";
-          rev = "50eba266b0d8a952c7230fca1114cbc9fbbdfbd4";
-          sha256 = "0ppmajynpb9l58xbrcnbp41b66g7p0c9l2nlsvyjwk6d16g4p4gy";
-        };
-      }
+    {
+      name = "bass";
+      src = pkgs.fetchFromGitHub {
+        owner = "edc";
+        repo = "bass";
+        rev = "50eba266b0d8a952c7230fca1114cbc9fbbdfbd4";
+        sha256 = "0ppmajynpb9l58xbrcnbp41b66g7p0c9l2nlsvyjwk6d16g4p4gy";
+      };
+    }
     ];
   };
 
@@ -218,16 +246,16 @@
 
   services.lorri.enable = true;
 
-  # Non-Nixos
-  # targets.genericLinux.enable = true;
+# Non-Nixos
+  targets.genericLinux.enable = true;
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
+# This value determines the Home Manager release that your
+# configuration is compatible with. This helps avoid breakage
+# when a new Home Manager release introduces backwards
+# incompatible changes.
+#
+# You can update Home Manager without changing this value. See
+# the Home Manager release notes for a list of state version
+# changes in each release.
   home.stateVersion = "20.09";
 }
