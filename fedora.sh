@@ -7,7 +7,7 @@ sudo sed -n 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 sudo dnf group install gnome-desktop @virtualization -y
 sudo dnf config-manager --add-repo https://brave-browser-rpm-nightly.s3.brave.com/x86_64/
 sudo rpm --import https://brave-browser-rpm-nightly.s3.brave.com/brave-core-nightly.asc
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm brave-browser-nightly fish
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm brave-browser-nightly fish clang clang-devel clang-tools-extra lua java-latest-openjdk java-latest-openjdk-devel -y
 sudo dnf remove totem gnome-boxes yelp gnome-maps
 sudo dnf upgrade -y
 sudo dnf groupupdate Multimedia
