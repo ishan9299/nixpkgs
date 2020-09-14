@@ -164,6 +164,19 @@
         };
         size = 19;
       };
+
+      colors = {
+        primary = {
+          background = '0x000000';
+          foreground = '0xffffff';
+        };
+
+        /* cursor = {}; */
+
+        /* normal = {}; */
+
+        /* bright = {}; */
+      };
     };
   };
 
