@@ -69,38 +69,38 @@ modus-vivendi: &dark
     background: '#000000'
     foreground: '#ffffff'
 
-  # Normal colors
+  # Normal colors black and white are from active red,green
   normal:
-    black:   '#191919'
+    black:   '#203448'
     red:     '#ff8059'
     green:   '#44bc44'
     yellow:  '#eecc00'
-    blue:    '#10387c'
+    blue:    '#29aeff'
     magenta: '#feacd0'
     cyan:    '#00d3d0'
-    white:   '#c5c8c6'
+    white:   '#c6eaff'
 
-  # Bright colors (Bold characters)
+  # Bright colors (Bold characters) red_alt,green_alt
   bright:
-    black:   '#181a20'
-    red:     '#fb6859'
-    green:   '#00fc50'
-    yellow:  '#ffdd00'
-    blue:    '#00a2ff'
-    magenta: '#ff8bd4'
-    cyan:    '#30ffc0'
-    white:   '#a8a8a8'
+    black:   '#00322e'
+    red:     '#f4923b'
+    green:   '#80d200'
+    yellow:  '#cfdf30'
+    blue:    '#72a4ff'
+    magenta: '#f78fe7'
+    cyan:    '#4ae8fc'
+    white:   '#bfebe0'
 
-  # Dim colors
+  # Dim colors alt_other colors
   dim:
-    black:   '#110b11'
-    red:     '#ffcccc'
-    green:   '#b8e2b8'
-    yellow:  '#dfdfb0'
-    blue:    '#bfd9ff'
-    magenta: '#e5cfef'
-    cyan:    '#a8e5e5'
-    white:   '#e0e6f0'
+    black:   '#382f27'
+    red:     '#ff9977'
+    green:   '#00cd68'
+    yellow:  '#f0ce43'
+    blue:    '#00bdfa'
+    magenta: '#b6a0ff'
+    cyan:    '#6ae4b9'
+    white:   '#f8dec0'
 
 modus-operandi: &light
   # Default colors
@@ -110,38 +110,38 @@ modus-operandi: &light
 
   # Normal colors
   normal:
-    black:   '#000000'
+    black:   '#184034'
     red:     '#a60000'
     green:   '#005e00'
     yellow:  '#813e00'
     blue:    '#0030a6'
     magenta: '#721045'
     cyan:    '#00538b'
-    white:   '#505050'
+    white:   '#c4ede0'
 
-  # Bright colors (Bold characters)
+  # Bright colors (Bold characters) use the special foreforund and background
   bright:
-    black:   '#505050'
-    red:     '#a60000'
-    green:   '#005e00'
-    yellow:  '#813e00'
-    blue:    '#0030a6'
-    magenta: '#721045'
-    cyan:    '#00538b'
-    white:   '#f0f0f0'
+    black:   '#5d3026'
+    red:     '#972500'
+    green:   '#315b00'
+    yellow:  '#70480f'
+    blue:    '#223fbf'
+    magenta: '#8f0075'
+    cyan:    '#30517f'
+    white:   '#f0e0d4'
 
   # Dim colors
   dim:
-    black:   '#282828'
-    red:     '#5f0000'
-    green:   '#004000'
-    yellow:  '#3f3000'
-    blue:    '#201f55'
-    magenta: '#541f4f'
-    cyan:    '#0f3360'
-    white:   '#f8f8f8'
+    black:   '#61284f'
+    red:     '#a0132f'
+    green:   '#145c33'
+    yellow:  '#863927'
+    blue:    '#0000bb'
+    magenta: '#5317ac'
+    cyan:    '#005a5f'
+    white:   '#f8ddea'
 
-colors: *light
+colors: *dark
 
 
 selection:
