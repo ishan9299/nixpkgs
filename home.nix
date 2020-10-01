@@ -136,49 +136,49 @@
       '';
   };
 
-  programs.alacritty = {
-    enable = false;
-    settings = {
-
-      shell.program = "/home/me/.nix-profile/bin/tmux";
-
-      window = {
-        padding = {
-          x = 0;
-          y = 0;
-        };
-      };
-
-      font = {
-        normal = {
-          family = "Share Tech Mono";
-          style = "Regular";
-        };
-        bold = {
-          family = "Share Tech Mono";
-          style = "Regular";
-        };
-        italic = {
-          family = "Share Tech Mono";
-          style = "Regular";
-        };
-        size = 19;
-      };
-
-      colors = {
-        primary = {
-          background = '0x000000';
-          foreground = '0xffffff';
-        };
-
-        /* cursor = {}; */
-
-        /* normal = {}; */
-
-        /* bright = {}; */
-      };
-    };
-  };
+#  programs.alacritty = {
+#    enable = false;
+#    settings = {
+#
+#      shell.program = "/home/me/.nix-profile/bin/tmux";
+#
+#      window = {
+#        padding = {
+#          x = 0;
+#          y = 0;
+#        };
+#      };
+#
+#      font = {
+#        normal = {
+#          family = "Share Tech Mono";
+#          style = "Regular";
+#        };
+#        bold = {
+#          family = "Share Tech Mono";
+#          style = "Regular";
+#        };
+#        italic = {
+#          family = "Share Tech Mono";
+#          style = "Regular";
+#        };
+#        size = 19;
+#      };
+#
+#      colors = {
+#        primary = {
+#          background = '0x000000';
+#          foreground = '0xffffff';
+#        };
+#
+#        /* cursor = {}; */
+#
+#        /* normal = {}; */
+#
+#        /* bright = {}; */
+#      };
+#    };
+#  };
 
   programs.fish = {
     enable = true;
@@ -192,20 +192,20 @@
       set PATH /var/lib/flatpak/exports/bin $PATH
 
 #--- nix
-      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-          end
+      if test -e /home/me/.nix-profile/etc/profile.d/nix.sh
+        bass source /home/me/.nix-profile/etc/profile.d/nix.sh
+      end
 
-          export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
+      export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
 
 #---- For nixpkgs make sure glibcLocales is installed with the nixpkgs or home manager (for non Nixos)
-          export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+      export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
 
 #---- NNN settings
-          export NNN_OPTS="eRHdF"
-          export NNN_TRASH=1
-          export NNN_FIFO=/tmp/nnn.fifo
-          export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)"
+      export NNN_OPTS="eRHdF"
+      export NNN_TRASH=1
+      export NNN_FIFO=/tmp/nnn.fifo
+      export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)"
           '';
 
     functions = {
@@ -251,6 +251,8 @@
     }
     ];
   };
+
+  programs.bash.enable = true;
 
   programs.zoxide = {
     enable = true;
