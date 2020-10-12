@@ -7,7 +7,7 @@
   home.packages = [
 
 # Applications
-    pkgs.hexchat
+      pkgs.hexchat
       pkgs.qbittorrent
 
 #CLI
@@ -22,7 +22,6 @@
 # Rust Programs
       pkgs.ripgrep
       pkgs.fd
-      pkgs.zenith
       pkgs.exa
       pkgs.hyperfine
       pkgs.du-dust # dust
@@ -74,15 +73,15 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
-    enableZshIntegration = true;
     defaultCommand = "fd --type file --hidden --follow --no-ignore-vcs";
-    defaultOptions = [ "--layout=reverse" "--info=inline"];
+    defaultOptions = [ "--layout=reverse" "--info=inline" ];
 # ALT-C
     changeDirWidgetCommand = "fd --type d -H ";
 # CTRL-T
@@ -107,18 +106,21 @@
 #+--------- Random Config -------+
       set-option -g mouse on
       set-option -sa terminal-overrides ',xterm-256color*:Tc'
-      set -g status-left-length 20
+      set -g status-left ""
+      set -g status-right ""
 
 #+------- Split Windows -------+
-      bind | split-window -h
-      bind - split-window -v
+      bind-key | split-window -h -c '#{pane_current_path}' # normally prefix-%
+      bind-key '\' split-window -h -c '#{pane_current_path}' # normally prefix-%
+      bind-key - split-window -v -c '#{pane_current_path}' # normally prefix-"
 
 #+------- Automatically set window title ---------+
       set-window-option -g automatic-rename on
       set-option -g set-titles on
+      set-option -g renumber-windows on
 
 #+------- Setting a quick way to reload config ---------+
-      bind r source-file ~/.tmux.conf
+      bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 
 #+------- Vim keys for navigating panes ----------+
       bind h select-pane -L
@@ -126,66 +128,22 @@
       bind k select-pane -U
       bind l select-pane -R
 
-#+------- Colorscheme -------+
+#+---------- Alignment ----------+
       set -g status-style bg=default
       set -g status-style fg=white
       set-window-option -g window-status-current-style fg=green
-
-#+---------- Alignment ----------+
       set-option -g status-justify centre
+      set -g window-status-current-format "[#I:#W]"
+      set -g window-status-format "[#I:#W]"
       '';
   };
-
-#  programs.alacritty = {
-#    enable = false;
-#    settings = {
-#
-#      shell.program = "/home/me/.nix-profile/bin/tmux";
-#
-#      window = {
-#        padding = {
-#          x = 0;
-#          y = 0;
-#        };
-#      };
-#
-#      font = {
-#        normal = {
-#          family = "Share Tech Mono";
-#          style = "Regular";
-#        };
-#        bold = {
-#          family = "Share Tech Mono";
-#          style = "Regular";
-#        };
-#        italic = {
-#          family = "Share Tech Mono";
-#          style = "Regular";
-#        };
-#        size = 19;
-#      };
-#
-#      colors = {
-#        primary = {
-#          background = '0x000000';
-#          foreground = '0xffffff';
-#        };
-#
-#        /* cursor = {}; */
-#
-#        /* normal = {}; */
-#
-#        /* bright = {}; */
-#      };
-#    };
-#  };
 
   programs.fish = {
     enable = true;
     shellAliases = {
       "ls" = "exa -GB1 --icons";
       "ll" = "exa -abghHliS --icons";
-      "htop" = "zenith";
+      "htop" = "btm";
     };
     shellInit = ''
       set PATH $HOME/.local/bin $HOME/.local/npm/bin $HOME/.local/Goneovim $HOME/.cargo/bin $PATH
